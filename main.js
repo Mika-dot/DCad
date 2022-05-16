@@ -259,35 +259,198 @@ class clayFiring {
     }
     // обжиг глины
 
-    fileCreation(text) {
+    fileCreation(world) {
         var type = 'data:application/octet-stream;base64, ';
         var base = btoa(text);
         var res = type + base;
         document.getElementById('test').href = res;
     }
     // сохранение файлов // надо доделать
+
+    polygon(world) {
+
+        let localMorld = [];
+        let amount = 0;
+
+        for (let x = 0; x < world.length; x++) {
+            for (let y = 0; y < world[0].length; y++) {
+                for (let z = 0; z < world[0][0].length; z++) {
+                    if (world[x][y][z] == 1) {
+
+
+                        if (world[x][y][z] && world[x][y + 1][z] && world[x][y + 1][z + 1] && world[x][y][z + 1]) {
+
+                            amount++;
+                            localMorld[amount] = [];
+
+                            localMorld[amount][0] = [];
+                            localMorld[amount][0][0] = x;
+                            localMorld[amount][0][1] = y;
+                            localMorld[amount][0][2] = z;
+
+                            localMorld[amount][1] = [];
+                            localMorld[amount][1][0] = x;
+                            localMorld[amount][1][1] = y + 1;
+                            localMorld[amount][1][2] = z;
+
+                            localMorld[amount][2] = [];
+                            localMorld[amount][2][0] = x;
+                            localMorld[amount][2][1] = y + 1;
+                            localMorld[amount][2][2] = z + 1;
+
+                            localMorld[amount][3] = [];
+                            localMorld[amount][3][0] = x;
+                            localMorld[amount][3][1] = y;
+                            localMorld[amount][3][2] = z + 1;
+
+
+                        }
+
+
+                        if (world[x][y][z] && world[x][y + 1][z] && world[x + 1][y + 1][z] && world[x + 1][y][z]) {
+
+                            amount++;
+                            localMorld[amount] = [];
+
+                            localMorld[amount][0] = [];
+                            localMorld[amount][0][0] = x;
+                            localMorld[amount][0][1] = y;
+                            localMorld[amount][0][2] = z;
+
+                            localMorld[amount][1] = [];
+                            localMorld[amount][1][0] = x;
+                            localMorld[amount][1][1] = y + 1;
+                            localMorld[amount][1][2] = z;
+
+                            localMorld[amount][2] = [];
+                            localMorld[amount][2][0] = x + 1;
+                            localMorld[amount][2][1] = y + 1;
+                            localMorld[amount][2][2] = z;
+
+                            localMorld[amount][3] = [];
+                            localMorld[amount][3][0] = x + 1;
+                            localMorld[amount][3][1] = y;
+                            localMorld[amount][3][2] = z;
+
+
+                        }
+
+                        if (world[x][y][z] && world[x][y - 1][z] && world[x + 1][y - 1][z] && world[x + 1][y][z]) {
+
+                            amount++;
+                            localMorld[amount] = [];
+
+                            localMorld[amount][0] = [];
+                            localMorld[amount][0][0] = x;
+                            localMorld[amount][0][1] = y;
+                            localMorld[amount][0][2] = z;
+
+                            localMorld[amount][1] = [];
+                            localMorld[amount][1][0] = x;
+                            localMorld[amount][1][1] = y - 1;
+                            localMorld[amount][1][2] = z;
+
+                            localMorld[amount][2] = [];
+                            localMorld[amount][2][0] = x + 1;
+                            localMorld[amount][2][1] = y - 1;
+                            localMorld[amount][2][2] = z;
+
+                            localMorld[amount][3] = [];
+                            localMorld[amount][3][0] = x + 1;
+                            localMorld[amount][3][1] = y;
+                            localMorld[amount][3][2] = z;
+
+
+                        }
+
+                        if (world[x][y][z] && world[x][y][z + 1] && world[x + 1][y][z + 1] && world[x + 1][y][z]) {
+
+                            amount++;
+                            localMorld[amount] = [];
+
+                            localMorld[amount][0] = [];
+                            localMorld[amount][0][0] = x;
+                            localMorld[amount][0][1] = y;
+                            localMorld[amount][0][2] = z;
+
+                            localMorld[amount][1] = [];
+                            localMorld[amount][1][0] = x;
+                            localMorld[amount][1][1] = y;
+                            localMorld[amount][1][2] = z + 1;
+
+                            localMorld[amount][2] = [];
+                            localMorld[amount][2][0] = x + 1;
+                            localMorld[amount][2][1] = y;
+                            localMorld[amount][2][2] = z + 1;
+
+                            localMorld[amount][3] = [];
+                            localMorld[amount][3][0] = x + 1;
+                            localMorld[amount][3][1] = y;
+                            localMorld[amount][3][2] = z;
+
+
+                        }
+
+
+
+
+                    }
+                }
+            }
+        }
+
+        return localMorld;
+    }
+
+    conclusion(world) {
+        for (let x = 0; x < world.length; x++) {
+            for (let y = 0; y < world[0].length; y++) {
+                for (let z = 0; z < world[0][0].length; z++) {
+                    if (world[x][y][z] == 1) {
+                        console.log(x + " " + y + " " + z);
+                    }
+                }
+            }
+        }
+
+    }
+
+    polygonOBJ(localMorld) {
+        console.log("o Cube");
+        for (let i = 1; i < localMorld.length; i++) {
+            for (let j = 0; j < 4; j++) {
+                console.log(
+                    "v "  + localMorld[i][j][0]
+                    + " " + localMorld[i][j][1]
+                    + " " + localMorld[i][j][2]);
+            }
+        }
+        console.log("s off");
+        for (let i = 1; i < localMorld.length*4; i+=4) {
+            console.log("f " + (i + 0) + " " + (i + 1) + " " + (i + 2) + " " + (i + 3));
+        }
+
+    }
 }
 
 
 
-// let bodily = new Space(10, 10, 10, 0); // создание мира с харакеристиками поля
+let bodily = new Space(10, 10, 10, 0); // создание мира с харакеристиками поля
 
-// bodily.denseFigure(
-//     1,                                  // тип // 1 сложение // -1 вычитание
-//     [[2, 2], [5, 2], [5, 5], [2, 5]],   // контур фигуры
-//     3,                                  // высота выдавливания
-//     [0, 0, 0],                          // углы поворота
-//     [1, 0, 0]                           // растояние
-// );                                  // создание модели
+bodily.denseFigure(
+    1,                                  // тип // 1 сложение // -1 вычитание
+    [[2, 2], [4, 2], [4, 4], [2, 4]],   // контур фигуры
+    3,                                  // высота выдавливания
+    [0, 0, 0],                          // углы поворота
+    [1, 0, 0]                           // растояние
+);                                  // создание модели
 
 // bodily.denseFigure(-1, [[2, 2], [5, 2], [5, 5], [2, 5]], 2, [0, 0, 0], [2, 2, 2]); // создание модели вычитания
 
-// let f = bodily.solidClay();
-// //console.log(f);
-
+let world = bodily.solidClay();
 let Firing = new clayFiring();
-// let g = Firing.leather(f);
-// console.log(g);
-
+let polygonworld = Firing.leather(world);
+let f = Firing.polygon(polygonworld)
+let g = Firing.polygonOBJ(f);
 
 //Firing.fileCreation("ff");
